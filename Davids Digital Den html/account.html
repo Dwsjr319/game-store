@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>My Account — David's Digital Den</title>
+  <link rel="icon" type="image/x-icon" href="/Images/logo.png" />
+
+  <center>
+    <h1 style="background-image: linear-gradient(to right, #645656, #ffffff, #ffffff, #ffffff, #645656); font-family:'Wide Latin'; text-align:center; margin:0;">
+      David's Digital Den
+    </h1>
+  </center>
+
+  <style>
+    :root{
+      --bg: #4169e1;
+      --content-bg: #F9EFEF;
+      --sidebar-bg: #222;
+      --sidebar-hover: #333;
+      --accent: #4169e1;
+      --danger: #c0392b;
+      --text: #111;
+
+      --edge-inset: 10px;
+      --content-max: 1100px;
+      --logo-size: 180px;
+
+      --radius: 10px;
+    }
+
+    *{ box-sizing: border-box; }
+    body{ margin:0; background: var(--bg); font-family: Arial, sans-serif; color: var(--text); }
+
+    ul{ list-style:none; margin:0; padding:0; background:#333; overflow:hidden; position: sticky; top: 0; z-index: 1000;}
+    li{ float:left; border-right:1px solid #bbb; position: relative; }
+    li.right-item { float:right; border-left:1px solid #bbb; border-right:none; }
+    li a{ display:block; color:#fff; text-decoration:none; padding:14px 32px; text-align:center; }
+    li a:hover{ background:#111; }
+    .active{ background:#4169e1; border-left:1px solid #bbb; border-right:1px solid #bbb; border-top:1px solid #bbb; border-bottom:1px solid #bbb;}
+
+    .page {
+      width: min(var(--content-max), calc(100% - 24px));
+      margin: 24px auto 48px;
+      background: var(--content-bg);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 70vh;
+    }
+
+    .sidebar {
+      background: var(--sidebar-bg);
+      color: #fff;
+      padding: 16px 0;
+    }
+    .sidebar h2{
+      margin: 0 16px 8px;
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+    .navlist{
+      display: flex; flex-direction: column; gap: 4px;
+      margin: 8px; padding: 0;
+    }
+    .navbtn{
+      appearance: none; border: 0; outline: 0; background: transparent; color: #fff;
+      text-align: left; padding: 12px 14px; border-radius: 8px; cursor: pointer;
+      display: flex; align-items: center; gap: 8px; width: 100%;
+    }
+    .navbtn:hover{ background: var(--sidebar-hover); }
+    .navbtn.active{
+      background: var(--accent);
+    }
+
+    .main {
+      padding: 24px;
+      background: var(--content-bg);
+    }
+    .section {
+      display: none;
+      animation: fade .12s ease-in;
+    }
+    .section.active { display: block; }
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(4px); }
+      to   { opacity: 1; transform: translateY(0);   }
+    }
+
+    .section h3 { margin: 0 0 8px; }
+    .section p.helper { margin: 0 0 16px; color: #444; }
+
+    form { display: grid; gap: 12px; max-width: 520px; }
+    label { font-weight: 700; }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="number"]{
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      background: #fff;
+    }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .actions { display: flex; gap: 10px; margin-top: 4px; }
+
+    .btn {
+      border: 0; padding: 10px 14px; border-radius: 8px; cursor: pointer; font-weight: 700;
+      background: #222; color: #fff;
+    }
+    .btn:hover { filter: brightness(1.1); }
+    .btn.primary { background: var(--accent); }
+    .btn.danger  { background: var(--danger); }
+
+    .note {
+      background: #fff;
+      border: 1px dashed #bbb;
+      padding: 10px 12px;
+      border-radius: 8px;
+      color: #333;
+      font-size: 13px;
+    }
+
+    @media (max-width: 860px){
+      .page{ grid-template-columns: 1fr; }
+      .sidebar{
+        position: sticky; top: 48px; z-index: 10;
+        border-bottom: 1px solid #444;
+      }
+      .navlist{
+        display: grid; grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <br>
+  <ul>
+    <li><a href="index.php">Home</a></li>
+    <li><a href="products.html">Products</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="checkout.html">Checkout</a></li>
+    <li class="right-item"><a href="register.php">Register</a></li>
+    <li class="right-item"><a href="login.html" class="active">My Account</a></li>
+  </ul>
+
+  <div class="page" role="region" aria-label="Account management">
+    <aside class="sidebar" role="navigation" aria-label="Account sections">
+      <h2>My Account</h2>
+      <div class="navlist" role="tablist" aria-orientation="vertical">
+        <button class="navbtn active" data-target="overview" role="tab" aria-controls="overview" aria-selected="true">Overview</button>
+        <button class="navbtn" data-target="email" role="tab" aria-controls="email" aria-selected="false">Change Email</button>
+        <button class="navbtn" data-target="phone" role="tab" aria-controls="phone" aria-selected="false">Change Phone</button>
+        <button class="navbtn" data-target="password" role="tab" aria-controls="password" aria-selected="false">Change Password</button>
+        <button class="navbtn" data-target="username" role="tab" aria-controls="username" aria-selected="false">Change Username</button>
+        <button class="navbtn" data-target="privacy" role="tab" aria-controls="privacy" aria-selected="false">Privacy & Security</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <section id="overview" class="section active" role="tabpanel" aria-labelledby="overview-tab">
+        <h3>Account Overview</h3>
+        <p class="helper">Review your profile details. Use the menu on the left to update specific items.</p>
+        <div class="note">
+          <strong>Tip:</strong> Changes to email or password may sign you out and require re-login for security.
+        </div>
+      </section>
+
+      <section id="email" class="section" role="tabpanel">
+        <h3>Change Email Address</h3>
+        <p class="helper">Enter your new email. We’ll confirm using your current password.</p>
+        <form action="update_email.php" method="POST" novalidate>
+          <label for="new_email">New Email</label>
+          <input type="email" id="new_email" name="new_email" placeholder="you@example.com" required />
+
+          <label for="current_password_email">Current Password</label>
+          <input type="password" id="current_password_email" name="current_password" minlength="8" required />
+
+          <div class="actions">
+            <button class="btn" type="reset">Reset</button>
+            <button class="btn primary" type="submit">Save Email</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="phone" class="section" role="tabpanel">
+        <h3>Change Phone Number</h3>
+        <p class="helper">Use digits only; you can include a leading + for country code.</p>
+        <form action="update_phone.php" method="POST" novalidate>
+          <label for="new_phone">New Phone Number</label>
+          <input type="tel" id="new_phone" name="new_phone"
+                 inputmode="tel" placeholder="+1 555 123 4567"
+                 pattern="^\+?\d{7,15}$" required />
+
+          <label for="current_password_phone">Current Password</label>
+          <input type="password" id="current_password_phone" name="current_password" minlength="8" required />
+
+          <div class="actions">
+            <button class="btn" type="reset">Reset</button>
+            <button class="btn primary" type="submit">Save Phone</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="password" class="section" role="tabpanel">
+        <h3>Change Password</h3>
+        <p class="helper">Choose a strong password you haven’t used elsewhere.</p>
+        <form action="update_password.php" method="POST" novalidate>
+          <label for="current_password">Current Password</label>
+          <input type="password" id="current_password" name="current_password" minlength="8" required />
+
+          <div class="row">
+            <div>
+              <label for="new_password">New Password</label>
+              <input type="password" id="new_password" name="new_password" minlength="8" required />
+            </div>
+            <div>
+              <label for="confirm_password">Confirm New Password</label>
+              <input type="password" id="confirm_password" name="confirm_password" minlength="8" required />
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn" type="reset">Reset</button>
+            <button class="btn primary" type="submit">Update Password</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="username" class="section" role="tabpanel">
+        <h3>Change Username</h3>
+        <p class="helper">Usernames can include letters, numbers, underscores, or hyphens (3–30 chars).</p>
+        <form action="update_username.php" method="POST" novalidate>
+          <label for="new_username">New Username</label>
+          <input type="text" id="new_username" name="new_username"
+                 pattern="^[A-Za-z0-9_-]{3,30}$" required />
+
+          <label for="current_password_username">Current Password</label>
+          <input type="password" id="current_password_username" name="current_password" minlength="8" required />
+
+          <div class="actions">
+            <button class="btn" type="reset">Reset</button>
+            <button class="btn primary" type="submit">Save Username</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="privacy" class="section" role="tabpanel">
+        <h3>Privacy & Security</h3>
+        <p class="helper">Manage sign-in settings and account safety.</p>
+
+        <div class="note" style="margin-bottom:12px;">
+          <strong>Session timeout:</strong> For safety, we sign you out after a period of inactivity.
+        </div>
+
+        <form action="logout.php" method="POST" onsubmit="return confirm('Sign out now?');">
+          <div class="actions">
+            <button class="btn danger" type="submit">Sign Out</button>
+          </div>
+        </form>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    (function () {
+      const buttons = document.querySelectorAll('.navbtn');
+      const sections = document.querySelectorAll('.section');
+
+      function show(id) {
+        sections.forEach(s => s.classList.toggle('active', s.id === id));
+        buttons.forEach(b => {
+          const on = b.dataset.target === id;
+          b.classList.toggle('active', on);
+          b.setAttribute('aria-selected', on ? 'true' : 'false');
+        });
+      }
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => show(btn.dataset.target));
+        btn.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(btn.dataset.target); }
+        });
+      });
+
+      const pwForm = document.querySelector('#password form');
+      if (pwForm) {
+        pwForm.addEventListener('submit', (e) => {
+          const npw = pwForm.querySelector('#new_password').value;
+          const cpw = pwForm.querySelector('#confirm_password').value;
+          if (npw !== cpw) {
+            e.preventDefault();
+            alert('New password and confirmation must match.');
+          }
+        });
+      }
+
+      const phone = document.getElementById('new_phone');
+      if (phone) {
+        phone.addEventListener('input', () => {
+          phone.setCustomValidity('');
+          if (phone.value && !/^\+?\d{7,15}$/.test(phone.value)) {
+            phone.setCustomValidity('Please enter 7–15 digits (optional + prefix).');
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
