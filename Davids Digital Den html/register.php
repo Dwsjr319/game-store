@@ -2,7 +2,7 @@
 
 $db_host = 'fdb1032.awardspace.net';
 $db_user = '4674539_ddd'; 
-$db_pass = 'ObjectiveX319'; 
+$db_pass = '[Password]'; 
 $db_name = '4674539_ddd';  
 
 
